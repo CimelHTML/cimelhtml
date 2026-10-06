@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // Izinkan request dari website CimelHTML
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -23,13 +22,14 @@ export default async function handler(req, res) {
       });
     }
 
-    if (!process.env.VERCEL_TOKEN) {
+    const token = process.env.VERCEL_TOKEN;
+
+    if (!token) {
       return res.status(500).json({
         error: "VERCEL_TOKEN belum dipasang di server"
       });
     }
 
-    // Bersihkan nama project
     const name = projectName
       .toLowerCase()
       .trim()
@@ -44,17 +44,16 @@ export default async function handler(req, res) {
       });
     }
 
-    // Deploy ke Vercel
     const response = await fetch(
       "https://api.vercel.com/v13/deployments",
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${process.env.VERCEL_TOKEN}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          name,
+          name: name,
           files: [
             {
               file: "index.html",
@@ -72,8 +71,10 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       return res.status(response.status).json({
-        error: data.error?.message || "Deployment gagal",
-        details: data
+        error:
+          data?.error?.message ||
+          data?.error?.code ||
+          "Deployment gagal"
       });
     }
 
@@ -89,4 +90,4 @@ export default async function handler(req, res) {
       error: error.message || "Server error"
     });
   }
-                                      }
+}
