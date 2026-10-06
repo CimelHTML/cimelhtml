@@ -1,348 +1,233 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Deploy.HTML</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIMEL.DOWN — Pinterest Downloader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+        :root {
+            --merah: #ff1a1a;
+            --merah-gelap: #cc0000;
+            --hitam: #050505;
+            --abu-1: #111;
+            --abu-2: #222;
+            --abu-3: #333;
+            --teks-abu: #aaa;
+            --putih: #fff;
+        }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: #090909;
-      color: #f5f5f5;
-      font-family: Arial, sans-serif;
-    }
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #000);
+            color: var(--putih);
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    .container {
-      width: min(900px, 92%);
-      margin: auto;
-      padding: 35px 0;
-    }
+        .box {
+            background: var(--abu-1);
+            border: 1px solid var(--abu-2);
+            padding: 35px 25px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(255, 26, 26, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 70px;
-    }
+        .box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(255, 26, 26, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
 
-    .logo {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
+        h1 {
+            color: var(--merah);
+            letter-spacing: 3px;
+            font-size: 28px;
+            margin-bottom: 8px;
+            text-shadow: 0 0 10px rgba(255, 26, 26, 0.4);
+        }
 
-    .badge {
-      font-size: 11px;
-      color: #999;
-      border: 1px solid #292929;
-      padding: 7px 10px;
-      border-radius: 6px;
-    }
+        .sub {
+            color: var(--teks-abu);
+            font-size: 13px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
 
-    h1 {
-      font-size: clamp(38px, 8vw, 72px);
-      line-height: .95;
-      margin: 0 0 20px;
-      letter-spacing: -4px;
-    }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--abu-3);
+            background: #000;
+            color: var(--putih);
+            margin: 10px 0 20px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
 
-    .subtitle {
-      color: #888;
-      font-size: 15px;
-      margin-bottom: 40px;
-    }
+        input:focus {
+            border-color: var(--merah);
+            box-shadow: 0 0 0 3px rgba(255, 26, 26, 0.15);
+        }
 
-    .card {
-      background: #101010;
-      border: 1px solid #242424;
-      border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 18px;
-    }
+        input::placeholder {
+            color: #666;
+        }
 
-    label {
-      display: block;
-      font-size: 12px;
-      color: #999;
-      margin-bottom: 9px;
-    }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, var(--merah-gelap), var(--merah));
+            color: var(--putih);
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 26, 26, 0.25);
+        }
 
-    input,
-    textarea {
-      width: 100%;
-      background: #080808;
-      color: white;
-      border: 1px solid #292929;
-      border-radius: 9px;
-      outline: none;
-      padding: 13px;
-      font: inherit;
-    }
+        button:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(255, 26, 26, 0.35);
+        }
 
-    input:focus,
-    textarea:focus {
-      border-color: #555;
-    }
+        button:active {
+            transform: scale(0.98);
+        }
 
-    textarea {
-      min-height: 240px;
-      resize: vertical;
-      font-family: monospace;
-      font-size: 13px;
-    }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
 
-    .upload {
-      border: 1px dashed #3a3a3a;
-      border-radius: 10px;
-      padding: 25px;
-      text-align: center;
-      color: #888;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+        .hasil {
+            margin-top: 20px;
+            color: var(--teks-abu);
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 40px;
+        }
 
-    .upload:hover {
-      border-color: #777;
-      color: #fff;
-    }
+        .link-download {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 26, 26, 0.1);
+            color: var(--merah);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
 
-    .upload input {
-      display: none;
-    }
+        .link-download:hover {
+            background: rgba(255, 26, 26, 0.2);
+            transform: scale(1.02);
+        }
 
-    button {
-      width: 100%;
-      border: 0;
-      border-radius: 9px;
-      padding: 15px;
-      background: #fff;
-      color: #000;
-      font-weight: 800;
-      cursor: pointer;
-      font-size: 14px;
-    }
+        .loading {
+            color: #ff6b6b;
+        }
 
-    button:hover {
-      opacity: .9;
-    }
+        .error {
+            color: #ff6b6b;
+        }
 
-    button:disabled {
-      opacity: .5;
-      cursor: not-allowed;
-    }
-
-    .status {
-      display: none;
-      margin-top: 18px;
-      padding: 15px;
-      border-radius: 9px;
-      background: #0b0b0b;
-      border: 1px solid #242424;
-      font-family: monospace;
-      font-size: 12px;
-      line-height: 1.7;
-      white-space: pre-wrap;
-    }
-
-    .result {
-      display: none;
-      margin-top: 18px;
-      padding: 16px;
-      border-radius: 9px;
-      background: #0b0b0b;
-      border: 1px solid #242424;
-    }
-
-    .result a {
-      color: white;
-      word-break: break-all;
-    }
-
-    footer {
-      text-align: center;
-      color: #555;
-      font-size: 11px;
-      padding: 35px 0;
-    }
-  </style>
+        .footer {
+            margin-top: 25px;
+            font-size: 11px;
+            color: #444;
+        }
+    </style>
 </head>
-
 <body>
-
-  <main class="container">
-
-    <div class="top">
-      <div class="logo">Deploy.HTML</div>
-      <div class="badge">instant hosting</div>
+    <div class="box">
+        <h1>⚡ CIMEL.DOWN</h1>
+        <p class="sub">Pinterest Video & Image Downloader<br>Fast • Clean • Free</p>
+        
+        <input id="url" type="url" placeholder="Tempel link Pinterest di sini..." autocomplete="off">
+        <button id="btnDownload" onclick="go()">MULAI DOWNLOAD</button>
+        
+        <div id="hasil" class="hasil"></div>
+        
+        <p class="footer">dibuat khusus untuk cimel 🖤❤️</p>
     </div>
 
-    <h1>Ubah index.html<br>jadi website.</h1>
+    <script>
+        async function go() {
+            const u = document.getElementById('url').value.trim();
+            const hasilEl = document.getElementById('hasil');
+            const btn = document.getElementById('btnDownload');
 
-    <div class="subtitle">
-      Upload HTML kamu dan deploy menjadi website.
-    </div>
+            if (!u) {
+                hasilEl.innerHTML = '<span class="error">⚠️ Tempel link dulu dong Cimel! 😊</span>';
+                document.getElementById('url').focus();
+                return;
+            }
 
-    <div class="card">
+            // Validasi sederhana
+            if (!u.includes('pinterest')) {
+                hasilEl.innerHTML = '<span class="error">❌ Harap masukkan link Pinterest yang valid!</span>';
+                return;
+            }
 
-      <label>PROJECT NAME</label>
+            // Loading state
+            btn.disabled = true;
+            btn.textContent = '⏳ Memproses...';
+            hasilEl.innerHTML = '<span class="loading">🔄 Mengambil video dari: <br><small>' + u + '</small></span>';
 
-      <input
-        id="projectName"
-        type="text"
-        placeholder="contoh: website-cimel"
-      >
+            try {
+                // Sambung ke API nanti
+                const res = await fetch('/api/deploy?url=' + encodeURIComponent(u));
+                
+                if (!res.ok) throw new Error('Server tidak merespons');
+                
+                const d = await res.json();
+                
+                if (d.url) {
+                    hasilEl.innerHTML = `
+                        ✅ Siap diunduh! 🎉<br>
+                        <a href="${d.url}" class="link-download" target="_blank">⬇️ KLIK DISINI</a>
+                    `;
+                } else {
+                    throw new Error('Link tidak ditemukan');
+                }
+            } catch (err) {
+                hasilEl.innerHTML = `
+                    <span class="error">
+                        ⚙️ Sistem sedang dalam pengembangan<br>
+                        Design sudah siap, API menyusul ya Cimel 💪<br>
+                        <small style="color:#555">${err.message || ''}</small>
+                    </span>
+                `;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'MULAI DOWNLOAD';
+            }
+        }
 
-    </div>
-
-    <div class="card">
-
-      <label>HTML FILE</label>
-
-      <label class="upload">
-        <input
-          id="htmlFile"
-          type="file"
-          accept=".html,text/html"
-        >
-        <span id="fileText">
-          Klik untuk pilih file .html
-        </span>
-      </label>
-
-    </div>
-
-    <div class="card">
-
-      <label>ATAU PASTE HTML</label>
-
-      <textarea
-        id="htmlCode"
-        placeholder="Paste kode HTML kamu di sini..."
-      ></textarea>
-
-    </div>
-
-    <button id="deployBtn">
-      Deploy Website
-    </button>
-
-    <div id="status" class="status"></div>
-
-    <div id="result" class="result">
-      <strong>Website berhasil dibuat:</strong>
-      <br><br>
-      <a id="resultLink" href="#" target="_blank"></a>
-    </div>
-
-    <footer>
-      DeployHTML — v1.0
-    </footer>
-
-  </main>
-
-<script>
-const fileInput = document.getElementById("htmlFile");
-const fileText = document.getElementById("fileText");
-const htmlCode = document.getElementById("htmlCode");
-const deployBtn = document.getElementById("deployBtn");
-const statusBox = document.getElementById("status");
-const resultBox = document.getElementById("result");
-const resultLink = document.getElementById("resultLink");
-
-fileInput.addEventListener("change", async () => {
-  const file = fileInput.files[0];
-
-  if (!file) return;
-
-  fileText.textContent = file.name;
-
-  const text = await file.text();
-  htmlCode.value = text;
-});
-
-deployBtn.addEventListener("click", async () => {
-
-  const projectName =
-    document.getElementById("projectName").value.trim();
-
-  const code = htmlCode.value.trim();
-
-  resultBox.style.display = "none";
-
-  if (!projectName) {
-    alert("Masukkan nama project terlebih dahulu.");
-    return;
-  }
-
-  if (!code) {
-    alert("Upload file HTML atau paste kode HTML terlebih dahulu.");
-    return;
-  }
-
-  deployBtn.disabled = true;
-  deployBtn.textContent = "Deploying...";
-
-  statusBox.style.display = "block";
-  statusBox.textContent =
-    "Memulai deployment...\n" +
-    "Mengirim project ke server...";
-
-  try {
-
-    const response = await fetch("/api/deploy", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        projectName: projectName,
-        html: code
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.error || "Deployment gagal."
-      );
-    }
-
-    statusBox.textContent =
-      "Deployment berhasil!\n" +
-      "Website sedang diproses...";
-
-    const url =
-      data.url ||
-      data.deployUrl ||
-      data.inspectorUrl;
-
-    if (url) {
-      resultBox.style.display = "block";
-      resultLink.href = url;
-      resultLink.textContent = url;
-    }
-
-  } catch (error) {
-
-    statusBox.textContent =
-      "ERROR:\n" + error.message;
-
-  } finally {
-
-    deployBtn.disabled = false;
-    deployBtn.textContent = "Deploy Website";
-
-  }
-});
-</script>
-
+        // Enter langsung kirim
+        document.getElementById('url').addEventListener('keydown', e => {
+            if (e.key === 'Enter') go();
+        });
+    </script>
 </body>
-  </html>
-      
+</html>
