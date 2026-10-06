@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deploy.HTML</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #090909;
+      color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: min(900px, 92%);
+      margin: auto;
+      padding: 35px 0;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 70px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .badge {
+      font-size: 11px;
+      color: #999;
+      border: 1px solid #292929;
+      padding: 7px 10px;
+      border-radius: 6px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 8vw, 72px);
+      line-height: .95;
+      margin: 0 0 20px;
+      letter-spacing: -4px;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #101010;
+      border: 1px solid #242424;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 9px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: #080808;
+      color: white;
+      border: 1px solid #292929;
+      border-radius: 9px;
+      outline: none;
+      padding: 13px;
+      font: inherit;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #555;
+    }
+
+    textarea {
+      min-height: 240px;
+      resize: vertical;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .upload {
+      border: 1px dashed #3a3a3a;
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      color: #888;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .upload:hover {
+      border-color: #777;
+      color: #fff;
+    }
+
+    .upload input {
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 9px;
+      padding: 15px;
+      background: #fff;
+      color: #000;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 9px;
+      background: #0b0b0b;
+      border: 1px solid #242424;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 9px;
+      background: #0b0b0b;
+      border: 1px solid #242424;
+    }
+
+    .result a {
+      color: white;
+      word-break: break-all;
+    }
+
+    footer {
+      text-align: center;
+      color: #555;
+      font-size: 11px;
+      padding: 35px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <div class="top">
+      <div class="logo">Deploy.HTML</div>
+      <div class="badge">instant hosting</div>
+    </div>
+
+    <h1>Ubah index.html<br>jadi website.</h1>
+
+    <div class="subtitle">
+      Upload HTML kamu dan deploy menjadi website.
+    </div>
+
+    <div class="card">
+
+      <label>PROJECT NAME</label>
+
+      <input
+        id="projectName"
+        type="text"
+        placeholder="contoh: website-cimel"
+      >
+
+    </div>
+
+    <div class="card">
+
+      <label>HTML FILE</label>
+
+      <label class="upload">
+        <input
+          id="htmlFile"
+          type="file"
+          accept=".html,text/html"
+        >
+        <span id="fileText">
+          Klik untuk pilih file .html
+        </span>
+      </label>
+
+    </div>
+
+    <div class="card">
+
+      <label>ATAU PASTE HTML</label>
+
+      <textarea
+        id="htmlCode"
+        placeholder="Paste kode HTML kamu di sini..."
+      ></textarea>
+
+    </div>
+
+    <button id="deployBtn">
+      Deploy Website
+    </button>
+
+    <div id="status" class="status"></div>
+
+    <div id="result" class="result">
+      <strong>Website berhasil dibuat:</strong>
+      <br><br>
+      <a id="resultLink" href="#" target="_blank"></a>
+    </div>
+
+    <footer>
+      DeployHTML — v1.0
+    </footer>
+
+  </main>
+
+<script>
+const fileInput = document.getElementById("htmlFile");
+const fileText = document.getElementById("fileText");
+const htmlCode = document.getElementById("htmlCode");
+const deployBtn = document.getElementById("deployBtn");
+const statusBox = document.getElementById("status");
+const resultBox = document.getElementById("result");
+const resultLink = document.getElementById("resultLink");
+
+fileInput.addEventListener("change", async () => {
+  const file = fileInput.files[0];
+
+  if (!file) return;
+
+  fileText.textContent = file.name;
+
+  const text = await file.text();
+  htmlCode.value = text;
+});
+
+deployBtn.addEventListener("click", async () => {
+
+  const projectName =
+    document.getElementById("projectName").value.trim();
+
+  const code = htmlCode.value.trim();
+
+  resultBox.style.display = "none";
+
+  if (!projectName) {
+    alert("Masukkan nama project terlebih dahulu.");
+    return;
+  }
+
+  if (!code) {
+    alert("Upload file HTML atau paste kode HTML terlebih dahulu.");
+    return;
+  }
+
+  deployBtn.disabled = true;
+  deployBtn.textContent = "Deploying...";
+
+  statusBox.style.display = "block";
+  statusBox.textContent =
+    "Memulai deployment...\n" +
+    "Mengirim project ke server...";
+
+  try {
+
+    const response = await fetch("/api/deploy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        projectName: projectName,
+        html: code
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Deployment gagal."
+      );
+    }
+
+    statusBox.textContent =
+      "Deployment berhasil!\n" +
+      "Website sedang diproses...";
+
+    const url =
+      data.url ||
+      data.deployUrl ||
+      data.inspectorUrl;
+
+    if (url) {
+      resultBox.style.display = "block";
+      resultLink.href = url;
+      resultLink.textContent = url;
+    }
+
+  } catch (error) {
+
+    statusBox.textContent =
+      "ERROR:\n" + error.message;
+
+  } finally {
+
+    deployBtn.disabled = false;
+    deployBtn.textContent = "Deploy Website";
+
+  }
+});
+</script>
+
+</body>
+</html>
