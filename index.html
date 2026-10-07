@@ -1,275 +1,347 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CIMEL.DOWN</title>
-<style>
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Courier New', monospace;
-}
-:root {
-  --merah: #ff0000;
-  --hitam: #000;
-  --abu-gelap: #0a0a0a;
-  --abu-batas: #222;
-  --abu-teks: #888;
-  --abu-lembut: #444;
-  --putih: #fff;
-}
-body{
-  background: var(--hitam);
-  color: var(--putih);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-.container{
-  width: 100%;
-  max-width: 420px;
-  border: 2px solid var(--merah);
-  padding: 24px;
-  background: var(--hitam);
-  box-shadow: 0 0 20px rgba(255,0,0,0.3),
-              inset 0 0 10px rgba(255,0,0,0.1);
-  border-radius: 4px;
-}
-.header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.logo{
-  font-weight: 900;
-  letter-spacing: 2px;
-  font-size: 18px;
-}
-.logo span{
-  color: var(--merah);
-}
-.badge{
-  border: 1px solid var(--merah);
-  color: var(--merah);
-  font-size: 9px;
-  padding: 3px 8px;
-  letter-spacing: 1px;
-}
-h1{
-  font-size: 22px;
-  font-weight: 900;
-  line-height: 1.2;
-  margin-bottom: 4px;
-}
-h1 span{
-  color: var(--merah);
-}
-.desc{
-  font-size: 11px;
-  color: var(--abu-teks);
-  margin: 12px 0 20px;
-  line-height: 1.5;
-}
-.input-box{
-  border: 1px solid var(--abu-batas);
-  background: var(--abu-gelap);
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-.input-box:focus-within{
-  border-color: var(--merah);
-  box-shadow: 0 0 0 2px rgba(255,0,0,0.15);
-}
-.input-box input{
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: var(--putih);
-  outline: none;
-  font-size: 13px;
-  width: 100%;
-}
-.input-box input::placeholder{
-  color: #555;
-}
-.btn{
-  width: 100%;
-  background: var(--merah);
-  color: var(--putih);
-  border: none;
-  padding: 14px;
-  font-weight: 900;
-  letter-spacing: 1px;
-  margin-top: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.btn:hover{
-  background: #e60000;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255,0,0,0.3);
-}
-.btn:active{
-  transform: translateY(0);
-}
-.btn:disabled{
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-.result{
-  margin-top: 15px;
-  display: none;
-  border: 1px solid var(--merah);
-  padding: 14px;
-  background: rgba(255,0,0,0.03);
-  word-break: break-all;
-}
-.result a{
-  color: var(--merah);
-  font-size: 13px;
-  text-decoration: none;
-}
-.result a:hover{
-  text-decoration: underline;
-}
-.result img{
-  border-radius: 2px;
-}
-.status-loading{
-  color: #ff9999;
-}
-.status-sukses{
-  color: #ff6666;
-  font-weight: bold;
-}
-.status-error{
-  color: #ff4444;
-}
-.footer{
-  margin-top: 20px;
-  text-align: center;
-  font-size: 9px;
-  color: var(--abu-lembut);
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deploy.HTML</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #090909;
+      color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: min(900px, 92%);
+      margin: auto;
+      padding: 35px 0;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 70px;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .badge {
+      font-size: 11px;
+      color: #999;
+      border: 1px solid #292929;
+      padding: 7px 10px;
+      border-radius: 6px;
+    }
+
+    h1 {
+      font-size: clamp(38px, 8vw, 72px);
+      line-height: .95;
+      margin: 0 0 20px;
+      letter-spacing: -4px;
+    }
+
+    .subtitle {
+      color: #888;
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: #101010;
+      border: 1px solid #242424;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 9px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: #080808;
+      color: white;
+      border: 1px solid #292929;
+      border-radius: 9px;
+      outline: none;
+      padding: 13px;
+      font: inherit;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #555;
+    }
+
+    textarea {
+      min-height: 240px;
+      resize: vertical;
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .upload {
+      border: 1px dashed #3a3a3a;
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      color: #888;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .upload:hover {
+      border-color: #777;
+      color: #fff;
+    }
+
+    .upload input {
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 9px;
+      padding: 15px;
+      background: #fff;
+      color: #000;
+      font-weight: 800;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 9px;
+      background: #0b0b0b;
+      border: 1px solid #242424;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+
+    .result {
+      display: none;
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 9px;
+      background: #0b0b0b;
+      border: 1px solid #242424;
+    }
+
+    .result a {
+      color: white;
+      word-break: break-all;
+    }
+
+    footer {
+      text-align: center;
+      color: #555;
+      font-size: 11px;
+      padding: 35px 0;
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
-  <div class="header">
-    <div class="logo">⚡ CIMEL<span>.DOWN</span></div>
-    <div class="badge">V1.1 ONLINE</div>
-  </div>
 
-  <h1>DOWNLOAD<br><span>PINTEREST</span><br>VIDEO & GAMBAR</h1>
-  <p class="desc">Tempel link Pinterest → langsung download HD tanpa watermark<br>Dibuat khusus untuk cimel 🖤❤️</p>
+  <main class="container">
 
-  <div class="input-box">
-    <input id="url" type="url" placeholder="https://www.pinterest.com/pin/..." autocomplete="off">
-  </div>
+    <div class="top">
+      <div class="logo">Deploy.HTML</div>
+      <div class="badge">instant hosting</div>
+    </div>
 
-  <button class="btn" id="btn" onclick="downloadReal()">MULAI DOWNLOAD</button>
+    <h1>Ubah index.html<br>jadi website.</h1>
 
-  <div class="result" id="result"></div>
+    <div class="subtitle">
+      Upload HTML kamu dan deploy menjadi website.
+    </div>
 
-  <div class="footer">cimelcuy.vercel.app — 2025</div>
-</div>
+    <div class="card">
+
+      <label>PROJECT NAME</label>
+
+      <input
+        id="projectName"
+        type="text"
+        placeholder="contoh: website-cimel"
+      >
+
+    </div>
+
+    <div class="card">
+
+      <label>HTML FILE</label>
+
+      <label class="upload">
+        <input
+          id="htmlFile"
+          type="file"
+          accept=".html,text/html"
+        >
+        <span id="fileText">
+          Klik untuk pilih file .html
+        </span>
+      </label>
+
+    </div>
+
+    <div class="card">
+
+      <label>ATAU PASTE HTML</label>
+
+      <textarea
+        id="htmlCode"
+        placeholder="Paste kode HTML kamu di sini..."
+      ></textarea>
+
+    </div>
+
+    <button id="deployBtn">
+      Deploy Website
+    </button>
+
+    <div id="status" class="status"></div>
+
+    <div id="result" class="result">
+      <strong>Website berhasil dibuat:</strong>
+      <br><br>
+      <a id="resultLink" href="#" target="_blank"></a>
+    </div>
+
+    <footer>
+      DeployHTML — v1.0
+    </footer>
+
+  </main>
 
 <script>
-async function downloadReal(){
-  const url = document.getElementById('url').value.trim();
-  const resDiv = document.getElementById('result');
-  const btn = document.getElementById('btn');
+const fileInput = document.getElementById("htmlFile");
+const fileText = document.getElementById("fileText");
+const htmlCode = document.getElementById("htmlCode");
+const deployBtn = document.getElementById("deployBtn");
+const statusBox = document.getElementById("status");
+const resultBox = document.getElementById("result");
+const resultLink = document.getElementById("resultLink");
 
-  // Validasi kosong
-  if (!url) {
-    resDiv.style.display = 'block';
-    resDiv.innerHTML = '<span class="status-error">⚠️ Tempel link dulu Cimel! 😊</span>';
-    document.getElementById('url').focus();
+fileInput.addEventListener("change", async () => {
+  const file = fileInput.files[0];
+
+  if (!file) return;
+
+  fileText.textContent = file.name;
+
+  const text = await file.text();
+  htmlCode.value = text;
+});
+
+deployBtn.addEventListener("click", async () => {
+
+  const projectName =
+    document.getElementById("projectName").value.trim();
+
+  const code = htmlCode.value.trim();
+
+  resultBox.style.display = "none";
+
+  if (!projectName) {
+    alert("Masukkan nama project terlebih dahulu.");
     return;
   }
 
-  // Validasi link Pinterest
-  if (!url.includes('pinterest.com') && !url.includes('pin.it')) {
-    resDiv.style.display = 'block';
-    resDiv.innerHTML = '<span class="status-error">❌ Masukkan link Pinterest yang valid ya!</span>';
+  if (!code) {
+    alert("Upload file HTML atau paste kode HTML terlebih dahulu.");
     return;
   }
 
-  // Mulai proses
-  btn.disabled = true;
-  btn.innerText = 'PROSES...';
-  resDiv.style.display = 'block';
-  resDiv.innerHTML = '<span class="status-loading">🔄 Lagi ambil data dari Pinterest... Tunggu sebentar ya ⏳</span>';
+  deployBtn.disabled = true;
+  deployBtn.textContent = "Deploying...";
+
+  statusBox.style.display = "block";
+  statusBox.textContent =
+    "Memulai deployment...\n" +
+    "Mengirim project ke server...";
 
   try {
-    const api = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-    const r = await fetch(api);
 
-    if (!r.ok) throw new Error('Tidak bisa terhubung ke Pinterest');
+    const response = await fetch("/api/deploy", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        projectName: projectName,
+        html: code
+      })
+    });
 
-    const j = await r.json();
-    
-    if (!j.contents) throw new Error('Halaman tidak ditemukan atau dibatasi');
+    const data = await response.json();
 
-    const html = j.contents;
-
-    // Cari link video — urutan prioritas
-    let video = 
-      (html.match(/"V_720P":\s*\{"url":"([^"]+)"/) || [])[1] ||
-      (html.match(/"V_480P":\s*\{"url":"([^"]+)"/) || [])[1] ||
-      (html.match(/https:\/\/v1\.pinimg\.com\/videos\/[^"&]+\.mp4/) || [])[0];
-
-    if (video) {
-      video = video.replace(/\\u002F/g, '/');
-      resDiv.innerHTML = `
-        <span class="status-sukses">✅ VIDEO KETEMU!</span><br><br>
-        <a href="${video}" target="_blank" rel="noopener">
-          <button class="btn" style="margin:0">⬇️ DOWNLOAD VIDEO MP4</button>
-        </a>
-      `;
-      btn.innerText = 'BERHASIL ✅';
-      return;
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Deployment gagal."
+      );
     }
 
-    // Cari gambar HD
-    let img = (html.match(/"orig":\s*\{"url":"([^"]+)"/) || [])[1];
+    statusBox.textContent =
+      "Deployment berhasil!\n" +
+      "Website sedang diproses...";
 
-    if (img) {
-      img = img.replace(/\\u002F/g, '/');
-      resDiv.innerHTML = `
-        <span class="status-sukses">✅ GAMBAR HD KETEMU!</span><br><br>
-        <img src="${img}" alt="Pinterest Image" style="width:100%;margin:10px 0;border:1px solid #222"><br>
-        <a href="${img}" target="_blank" rel="noopener">
-          <button class="btn" style="margin:0">⬇️ DOWNLOAD GAMBAR</button>
-        </a>
-      `;
-      btn.innerText = 'BERHASIL ✅';
-      return;
+    const url =
+      data.url ||
+      data.deployUrl ||
+      data.inspectorUrl;
+
+    if (url) {
+      resultBox.style.display = "block";
+      resultLink.href = url;
+      resultLink.textContent = url;
     }
 
-    // Kalau tidak ketemu keduanya
-    throw new Error('Tidak ditemukan video/gambar di link ini. Coba link pin lain ya!');
+  } catch (error) {
 
-  } catch (e) {
-    resDiv.innerHTML = `<span class="status-error">❌ GAGAL: ${e.message}</span>`;
-    btn.innerText = 'MULAI DOWNLOAD';
+    statusBox.textContent =
+      "ERROR:\n" + error.message;
+
   } finally {
-    btn.disabled = false;
-  }
-}
 
-// Bisa tekan Enter langsung
-document.getElementById('url').addEventListener('keydown', e => {
-  if (e.key === 'Enter') downloadReal();
+    deployBtn.disabled = false;
+    deployBtn.textContent = "Deploy Website";
+
+  }
 });
 </script>
+
 </body>
-</html>
+  </html>
